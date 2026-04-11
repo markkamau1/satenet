@@ -55,7 +55,7 @@
 <div class="sl">Flow verdicts: per criteria agreed with Head of Product</div>
 <div class="vg">
   <div class="vc vc-go"><span class="vbg vb-go">Launch-ready</span><div class="vflow">M-Pesa flow</div><div class="vdesc">80% unassisted completion · SUS avg 85 · No P0 issues. Meets all pre-agreed thresholds.</div></div>
-  <div class="vc vc-ko"><span class="vbg vb-ko">Redesign needed</span><div class="vflow">Fedi flow</div><div class="vdesc">50% overall · 0% Fedi-unfamiliar · Ecash terminology confusion at critical payment step.</div></div>
+  <div class="vc vc-ko"><span class="vbg vb-ko">Redesign needed</span><div class="vflow">Fedi flow</div><div class="vdesc">50% overall · 0% Fedi-unfamiliar · Landing screen instructions mistaken for tappable CTAs; primary point of failure before ecash is reached.</div></div>
 </div>
 
 <div class="sl">Key numbers</div>
@@ -82,7 +82,7 @@
 <div class="sl">Emotional arc by flow</div>
 <div class="ag">
   <div class="ac"><div class="at">M-Pesa: smooth throughout</div><div class="ad"><div class="dot dg"></div><div class="dot dg"></div><div class="dot dg"></div><div class="dot dg"></div><div class="dot dg"></div></div><div class="as">Entry → Package → Pay → Confirm → Connected</div><div class="adesc">Confident throughout. SEQ avg 5.5. M-Pesa is the trusted baseline in this community; everything else is compared against it.</div></div>
-  <div class="ac"><div class="at">Fedi: dip at ecash terminology</div><div class="ad"><div class="dot dg"></div><div class="dot do"></div><div class="dot do"></div><div class="dot dg"></div><div class="dot dg"></div></div><div class="as">Entry → Tap Fedi → Ecash claim → Confirm → Connected</div><div class="adesc">Confidence dips at ecash. "What is ecash?" is the most common utterance. Recovers for familiar users. Fails entirely for unfamiliar (code 0).</div></div>
+  <div class="ac"><div class="at">Fedi: dip at landing screen instructions</div><div class="ad"><div class="dot dg"></div><div class="dot do"></div><div class="dot do"></div><div class="dot dg"></div><div class="dot dg"></div></div><div class="as">Entry → Landing screen → Package select → Pay → Connected</div><div class="adesc">Confidence drops immediately at the landing screen. "Choose your package" and "Pay to get online" are read as tappable CTAs, not instructions. 90% of participants tap the instruction text before finding the actual package cards. This is the primary point of failure. For users who progress, ecash terminology ("Claim ecash") is a second drop point for those unfamiliar with the term.</div></div>
 </div>
 
 <div class="sl">Anchor quotes</div>
@@ -93,7 +93,7 @@
 <div class="qc q-gr"><div class="qtxt">"This is a good way to introduce those who are still not fully into bitcoin."</div><div class="qmet">Participant · M-Pesa flow observation <span class="qtag tg-gr">positive observation</span></div></div>
 
 <div class="sl">Risks to flag</div>
-<div class="rb r-hi"><div class="rt">Ecash is unfamiliar and blocks code-0 users entirely and confuses code-1</div><div class="rbody">Fedi completion for code-0 participants is 0%. The ecash terminology and "Claim ecash" label has no context for users who have never heard of ecash. This is a content and onboarding problem, not a UI problem. An inline explanation resolves it but must be tested before build.</div></div>
+<div class="rb r-hi"><div class="rt">Landing screen instructions mistaken for tappable CTAs: primary point of failure for all users</div><div class="rbody">90% of participants tapped "Choose your package" or "Pay to get online" as if they were buttons, before locating the actual package cards. These instruction-style labels are visually indistinct from interactive elements, blocking entry to the flow. This affects both M-Pesa and Fedi users before any payment step is reached. Fix: restructure landing screen so instructions are clearly non-interactive.</div></div><div class="rb r-md"><div class="rt">Ecash terminology blocks code-0 users who reach the Fedi app</div><div class="rbody">For users who do progress past the landing screen, "Claim ecash" appears with no explanation. First-time users who have never heard the term are stopped here. This is a content problem, not a UI problem. An inline ecash explainer at first encounter and plain-language copy resolves it, but must be tested before build.</div></div>
 <div class="rb r-md"><div class="rt">Price advantage is visible and motivating, but only works if users have a Fedi account</div><div class="rbody">100% of participants noticed the 40% discount. All who chose M-Pesa did so because they lacked a Fedi account. Fedi account onboarding must be part of the launch plan.</div></div>
 
 <div class="sl">SUS scores by participant</div>
@@ -105,11 +105,11 @@
   <div class="sus-c"><div class="sus-p">P5</div><div class="sus-v sus-gd">82.5</div><div style="font-size:10px;color:var(--text3);margin-top:3px">Good</div></div>
   <div class="sus-c"><div class="sus-p">P6</div><div class="sus-v sus-gd">80.0</div><div style="font-size:10px;color:var(--text3);margin-top:3px">Good</div></div>
 </div>
-<div class="ib">Average SUS 85, above the industry benchmark of 68. P1 (67.5) is the only below-average score, corresponding to the Fedi-unfamiliar (code-0) participant who struggled most with ecash terminology.</div>
+<div class="ib">Average SUS 85, above the industry benchmark of 68. P1 (67.5) is the only below-average score, corresponding to the Fedi-unfamiliar (code-0) participant who encountered both failure points: the landing screen instructions mistaken for CTAs, and the unfamiliar ecash terminology further into the flow.</div>
 
 <div class="sl">Launch readiness</div>
 <div class="rdc rd-go"><div class="rdt">M-Pesa flow: launch-ready</div><div class="rdb">80% unassisted completion meets the pre-agreed threshold. SUS average of 85 exceeds the 68 minimum. No P0 issues. Three P1 issues identified, recommended to fix before release but do not block launch.</div></div>
-<div class="rdc rd-no"><div class="rdt">Fedi flow: redesign needed before build</div><div class="rdb">0% completion for Fedi-unfamiliar participants triggers the redesign verdict. The ecash claim screen is the primary failure point. Recommended: add ecash explainer at handoff, replace "Claim ecash" with plain-language copy, retest with code-0 participants before build.</div></div>
+<div class="rdc rd-no"><div class="rdt">Fedi flow: redesign needed before build</div><div class="rdb">0% completion for Fedi-unfamiliar participants triggers the redesign verdict. Two compounding failure points are identified. First, and most critically, the landing screen instructions — "Choose your package" and "Pay to get online" — are mistaken for tappable CTAs by 90% of users, who attempt to tap them before locating the actual package cards. This blocks entry to the flow entirely for many users. Second, users who do progress encounter ecash terminology ("Claim ecash") with no explanation, which is unfamiliar to first-time users who have never heard the term. Recommended: restructure landing screen so instructions are visually distinct from interactive elements; add an inline ecash explainer at first encounter; replace "Claim ecash" with plain-language copy; retest both fixes with code-0 participants before build.</div></div>
 
 </div>
 
@@ -118,7 +118,7 @@
 
 <div class="sl">Friction by flow: avg errors per task attempt</div>
 <div class="cc">
-  <div class="fb"><span class="fbl">Fedi: ecash / claim screen</span><div class="fbt"><div class="fbf" style="width:85%;background:var(--red)"></div></div><span class="fbv" style="color:var(--red)">4.0</span></div>
+  <div class="fb"><span class="fbl">Landing screen: instructions vs. CTAs</span><div class="fbt"><div class="fbf" style="width:85%;background:var(--red)"></div></div><span class="fbv" style="color:var(--red)">4.0</span></div>
   <div class="fb"><span class="fbl">Fedi: package navigation</span><div class="fbt"><div class="fbf" style="width:75%;background:var(--red)"></div></div><span class="fbv" style="color:var(--red)">3.5</span></div>
   <div class="fb"><span class="fbl">Choice: affordance clarity</span><div class="fbt"><div class="fbf" style="width:50%;background:var(--orange)"></div></div><span class="fbv" style="color:var(--orange)">2.5</span></div>
   <div class="fb"><span class="fbl">M-Pesa: package select</span><div class="fbt"><div class="fbf" style="width:30%;background:var(--orange)"></div></div><span class="fbv" style="color:var(--orange)">1.5</span></div>
@@ -142,10 +142,10 @@
   <div class="hf hf-w"><div class="hfco">W</div><div class="hfl">Worried</div><div class="hfc">1 / 9</div><div class="hfd">Expressed safety concern</div></div>
   <div class="hf hf-a"><div class="hfco">A</div><div class="hfl">Accepted</div><div class="hfc">7 / 9</div><div class="hfd">Continued without pause</div></div>
 </div>
-<div class="ib">78% accepted the handoff. The primary friction is not the transition itself but the ecash terminology immediately after it. Fix the copy, not the architecture.</div>
+<div class="ib">78% accepted the handoff. The primary friction occurs before the handoff is ever reached: landing screen instructions ("Choose your package", "Pay to get online") are mistaken for buttons, stopping 90% of users before they enter the payment flow. For users who do reach the Fedi app, ecash terminology ("Claim ecash") is a second barrier for those unfamiliar with the term. Fix the landing screen structure first, then address ecash copy in parallel.</div>
 
 <div class="sl">Mental model gaps</div>
-<div class="mm"><div class="mmt">Ecash = unfamiliar concept for non-bitcoin users</div><div class="mmr"><span class="mmb mm-e">Expected</span><span class="mmt2">Familiar terms: M-Pesa, shillings, or sats</span></div><div class="mmr"><span class="mmb mm-a">Actual</span><span class="mmt2">"Ecash" and "Claim ecash" appear with no explanation at the critical payment step</span></div><div class="mmq">"What is ecash?" (2 of 6) participants, heard at the handoff screen</div></div>
+<div class="mm"><div class="mmt">Landing screen instructions read as CTAs, not guidance</div><div class="mmr"><span class="mmb mm-e">Expected</span><span class="mmt2">Clear visual distinction between instructional text and interactive elements</span></div><div class="mmr"><span class="mmb mm-a">Actual</span><span class="mmt2">"Choose your package" and "Pay to get online" look tappable; 90% of users tap them before finding the package cards</span></div><div class="mmq">"First I would click Pay and Get Online." Most common first action across both flows</div></div><div class="mm"><div class="mmt">Ecash = unfamiliar concept for first-time users</div><div class="mmr"><span class="mmb mm-e">Expected</span><span class="mmt2">Familiar terms: M-Pesa, shillings, or sats</span></div><div class="mmr"><span class="mmb mm-a">Actual</span><span class="mmt2">"Ecash" and "Claim ecash" appear with no explanation, confusing users who have never encountered the term</span></div><div class="mmq">"What is ecash?" (2 of 6) participants, heard at the handoff screen</div></div>
 <div class="mm"><div class="mmt">Numeric values require currency context</div><div class="mmr"><span class="mmb mm-e">Expected</span><span class="mmt2">Values shown as "Ksh 20" or similar with unit context</span></div><div class="mmr"><span class="mmb mm-a">Actual</span><span class="mmt2">"20" and "5" shown without sufficient unit labels on the choice screen</span></div><div class="mmq">"I don't know what 20 and 5 mean." (Participant · Choice screen</div></div>
 <div class="mm"><div class="mmt">Package items: all expected to be tappable</div><div class="mmr"><span class="mmb mm-e">Expected</span><span class="mmt2">All visible package cards are interactive and lead to purchase</span></div><div class="mmr"><span class="mmb mm-a">Actual</span><span class="mmt2">Not all items are active paths; 5 of 6 tapped non-active areas on first attempt</span></div><div class="mmq">"I woulld click choose pacage." Most common first action in Fedi flow</div></div>
 
@@ -274,7 +274,7 @@
     <div class="sticky st-red">"I would choose Mpesa because I do not have a fedi account."<span class="st-meta">P1 · T3 · barrier</span></div>
     <div class="sticky st-red">Only 2 of 6 chose M-Pesa, both citing lack of account<span class="st-meta">metric · T3</span></div>
   </div>
-  <div class="cluster-insight">Insight: The 40% saving is universally noticed. The barrier to adoption is account access and ecash familiarity, not price visibility.</div>
+  <div class="cluster-insight">Insight: The 40% saving is universally noticed. The barriers to adoption are: landing screen CTA confusion (affects all users at entry), account access (no Fedi account), and ecash terminology unfamiliarity (affects code-0 users deeper in the flow). Price visibility is not the problem.</div>
 </div>
 
 <!-- ── CLUSTER: ECASH & HANDOFF ────────────────────────────── -->
@@ -289,7 +289,7 @@
     <div class="sticky st-green">Code-2 familiar users: 100% Fedi completion<span class="st-meta">metric · T2 · seg</span></div>
     <div class="sticky st-red">Code-0 unfamiliar users: 0% Fedi completion<span class="st-meta">metric · T2 · seg</span></div>
   </div>
-  <div class="cluster-insight">Insight: The transition to the Fedi app is broadly accepted (78%). What blocks users is the ecash terminology after the handoff. Fix the copy, not the architecture.</div>
+  <div class="cluster-insight">Insight: The transition to the Fedi app is broadly accepted (78%). Two distinct barriers exist: (1) the landing screen, where instruction text styled to look like CTAs stops 90% of users before they reach payment; and (2) ecash terminology, which blocks first-time users who have never encountered the term once they do reach the Fedi app. Both must be fixed; the landing screen is the higher-priority issue.</div>
 </div>
 
 <!-- ── CLUSTER: NAVIGATION ────────────────────────────────── -->
